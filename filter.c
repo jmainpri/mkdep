@@ -94,7 +94,8 @@ void substitution_filtering(char name[256])
     while (current != NULL) {
 	if (strncmp(current->subname, name, current->length) == 0) {
 	    char result[256];
-	    sprintf(result, "$(%s)%s", current->name, name+current->length);
+	    snprintf(result, sizeof(result), "$(%s)%s", 
+		     current->name, name+current->length);
 	    strcpy(name, result);
 	}
 	current = current->next;
