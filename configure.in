@@ -7,6 +7,7 @@ AC_INIT(mkdep.c)
 AC_PREREQ(2.1)
 
 AC_PROG_CC
+AC_PROG_INSTALL
 AC_CHECK_HEADERS(unistd.h)
 AC_C_CONST
 
@@ -24,7 +25,7 @@ case ${host_os} in
 esac
 
 PACKAGE=mkdep
-VERSION=2.1
+VERSION=2.2
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 
