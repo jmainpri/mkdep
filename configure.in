@@ -1,4 +1,4 @@
-AC_REVISION($, december 6, 1994$)
+AC_REVISION($LAAS$)dnl
 AC_INIT(mkdep.c)
 AC_PREREQ(2.1)
 
