@@ -54,6 +54,8 @@ CPPFLAGS  = @DEFS@ -DCC=\"@CC@\" -I$(srcdir) -I.
 
 VPATH = @srcdir@
 
+LIBOBJS = @LIBOBJS@
+
 INSTALL         = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA    = @INSTALL_DATA@
@@ -63,7 +65,7 @@ transform       = @program_transform_name@
 # Objects files
 
 OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o \
-	strlcat.o strlcpy.o
+	$(LIBOBJS)
 
 #----------------------------------------------------------------------
 # Manual page
