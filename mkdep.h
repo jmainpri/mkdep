@@ -35,7 +35,7 @@
 #include <stdio.h>
 
 typedef struct deps {
-    char           name[256];
+    char           name[1024];
     char *         subname; /* pour l'option -s */
     int            length;
     struct deps*   next;
@@ -53,7 +53,8 @@ void            delete_deps_list            (deps *);
 /* dependancies manager */
 
 void            display_dependencies        (FILE *, int, const char*);
-void            add_dependency              (char name[256], const char*, int);
+void            add_dependency              (char *name, size_t namelen, 
+                                             const char*, int);
 void            reset_dependencies          (void);
 
 
@@ -76,7 +77,7 @@ const char*     find_file                   (const char*);
 /* filtering manager */
 
 void            add_substitution            (const char*);
-void            substitution_filtering      (char name[256]);
+void            substitution_filtering      (char *name, size_t namelen);
 
 int             ignore_filtering            (const char *);         
 void            ignore_user_dependency      (const char *);
