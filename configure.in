@@ -32,3 +32,4 @@ AC_SUBST(VERSION)
 
 
 AC_OUTPUT(Makefile)
+AC_OUTPUT(config.h)
