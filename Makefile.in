@@ -46,7 +46,7 @@ MANS = mkdep.man
 
 DISTNAME = @PACKAGE@-@VERSION@
 DISTFILES = INSTALL Makefile.in README config.guess config.sub configure \
-	configure.in install-sh mkdep.h $(OBJ:%.o=%.c) $(MANS)
+	configure.in install-sh mkdep.h mkinstalldirs $(OBJ:%.o=%.c) $(MANS)
 
 #----------------------------------------------------------------------
 # primary targets
@@ -102,8 +102,6 @@ config.status: configure
 
 $(srcdir)/configure: configure.in
 	cd $(srcdir); autoconf
-
-
 
 #----------------------------------------------------------------------
 # default rules
