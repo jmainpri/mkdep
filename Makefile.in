@@ -62,7 +62,8 @@ transform       = @program_transform_name@
 #----------------------------------------------------------------------
 # Objects files
 
-OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o
+OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o \
+	strlcat.o strlcpy.o
 
 #----------------------------------------------------------------------
 # Manual page
