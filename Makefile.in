@@ -1,0 +1,88 @@
+#
+#     MakeFile pour generer mkdep
+#
+
+#----------------------------------------------------------------------
+# Makefile variables
+
+SHELL   = /bin/sh
+
+prefix  = @prefix@
+srcdir  = @srcdir@
+bindir  = @exec_prefix@/bin
+exeext  = @exeext@
+man1dir = $(prefix)/man/man1
+cat1dir = $(prefix)/man/cat1
+
+alldirs = $(bindir) $(man1dir) $(cat1dir)
+
+#----------------------------------------------------------------------
+# Compilation variables
+
+CC         = @CC@
+CFLAGS     = @CFLAGS@
+
+
+CPPFLAGS = @DEFS@ -DCC=\"@CC@\" -I$(srcdir)
+
+VPATH = @srcdir@
+
+#----------------------------------------------------------------------
+# Objects files
+
+OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o
+
+#----------------------------------------------------------------------
+# primary targets
+
+MKDEP = mkdep$(exeext)
+
+all: $(MKDEP)
+
+$(MKDEP): $(OBJ)
+	$(CC) -o $@ $(OBJ) 
+
+install: $(bindir)/$(MKDEP) $(man1dir)/mkdep.1 $(cat1dir)/mkdep.1
+
+uninstall:
+	-rm -f $(bindir)/mkdep $(man1dir)/mkdep.1 $(cat1dir)/mkdep.1
+
+
+clean:
+	-rm $(OBJ) $(MKDEP)
+
+skel: clean
+	-rm config.cache config.log config.status Makefile
+
+#----------------------------------------------------------------------
+# secondary targets (called by primary ones)
+
+
+$(bindir)/$(MKDEP): $(MKDEP) $(bindir)
+	cp $(MKDEP) $(bindir)
+
+$(alldirs):
+	mkdir -p $@
+
+
+Makefile: Makefile.in config.status
+	./config.status
+
+config.status: configure
+	./config.status --recheck
+
+$(srcdir)/configure: configure.in
+	cd $(srcdir); autoconf
+
+
+#----------------------------------------------------------------------
+# default rules
+
+%.o: %.c mkdep.h
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< 
+
+$(man1dir)/%.1: %.man $(man1dir)
+	cp $< $@
+
+$(cat1dir)/%.1: %.man $(cat1dir)
+	nroff -man $< > $@

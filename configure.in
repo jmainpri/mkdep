@@ -1,0 +1,22 @@
+AC_REVISION($, december 6, 1994$)
+AC_INIT(mkdep.c)
+AC_PREREQ(2.1)
+
+AC_PROG_CC
+AC_CHECK_HEADERS(unistd.h)
+AC_C_CONST
+
+dnl
+dnl Get cannonical host
+dnl
+AC_CANONICAL_HOST
+AC_DEFINE_UNQUOTED(OS_TYPE, "$host_os")
+
+AC_SUBST(exeext)
+case ${host_os} in
+   cygwin*)
+   exeext=.exe
+   ;;
+esac
+
+AC_OUTPUT(Makefile)

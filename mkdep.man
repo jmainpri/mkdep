@@ -1,0 +1,116 @@
+.TH MKDEP 1 "5 January 1994" "CNET"
+
+.SH NAME
+mkdep \- file dependencies generator
+.SH SYNOPSIS
+.TP
+.B mkdep
+[-h] [-a] [-k]
+.br
+[-c<compiler>] [-l<lib>] [-d<dir>]
+.br
+[-p<paths>] [-i<path>] [-s<var>=<path>] [-t<suffix>]
+.br
+[-I/Y<dir>] [-D/U<macro>] [-o<file>] <files>
+.PP
+.SH DESCRIPTION
+.I mkdep
+generates dependencies for makefile through a preprocessor on standard
+output or at the end of a specified file (e.g. makefile).
+Options are read and interpreted in sequence, so you can switch them for
+different files.
+.br
+For instance:
+.nf
+    mkdep -cgcc -llibm.a sin.c cos.c -cg++ -llibM.a Matrix.cc
+.fi
+.PP
+.SH OPTIONS
+.TP
+.I -h
+Help. Display a summary of options.
+.PP
+.TP
+.I -a
+By default, dependencies of system files
+are not generated. This option forces
+.B mkdep
+to generate
+.I all
+dependencies.
+.PP
+.TP
+.I -k
+Compact output mode. Dependencies are generated on one line per
+target, default mode generates one line per dependency.
+.PP
+.TP
+.I -c<compiler>
+Specifies the compiler (gcc, cc...) to use as the preprocessor. By
+default, this is set to 
+.B gcc.
+In fact,
+.B mkdep
+use the option -E of this compiler (so you can specify
+.I any
+compiler which has this option -E).
+This option resets also -I, -Y, -D, -U, -d and -l flags.
+.PP
+.TP
+.I -i<path>
+Ignore all dependencies beginning with the given path (and so allows
+some filtering of your local standard include).
+.PP
+.TP
+.I -l<lib>
+This option precises that the target is an object file of a library.
+So the dependencies are generated with the format <lib>(%.o).
+.PP
+.TP
+.I -d<dir>
+This option precises that the target is localised in the specified
+directory. The dependencies are generated with the format <dir>/%.o.
+.PP
+.TP
+-o<file>
+By default, dependencies are generated on standard output. You can
+specify a file (e.g. Makefile) with this option, dependencies will
+be generated at the end of this file and replace previous dependencies
+(if any). This generation is also incremental and unmodified
+dependencies are preserved by
+.B mkdep. 
+.PP
+.TP
+.I -p<paths>
+This option specifies a set of paths where the source files must be
+searched. This corresponds to the variable VPATH of many makefiles and
+is usually used as -p$(VPATH) in them.
+.PP
+.TP
+.I -t<suffix>
+Defines the target suffix. By default, all targets are assumed to have
+the ".o" suffix (C compiling).
+.PP
+.TP
+.I -s<var>=<path>
+Replace in dependencies the given path by $(var) to allow genericity
+in the generated dependencies.
+.PP
+.TP
+.I -I<dir> -D<macro> -Y<dir> -U<macro>
+These options are given to the prepocessor that generates the
+dependencies.
+.PP
+.SH SEE ALSO
+cpp(1)
+.PP
+.SH BUGS
+Report it (them?) to dousson@lannion.cnet.fr
+.PP
+.SH AUTHOR
+Christophe Dousson.
+.br
+from the original "mkdepend" of Matthieu Herrb.
+.br
+thanks to Paul Gaborit for improvement.
+.PP
