@@ -75,13 +75,13 @@ FILE * run_preprocessor(const char* file, const char *vpath)
 	define_preprocessor(CC); /* CC = MACRO */
     }
     if (vpath == NULL) {
-        len = strlen(preprocessor)+strlen(file)+7;
+        len = strlen(preprocessor)+strlen(file)+20;
 	command = (char*) malloc(len);
-	snprintf(command, len, "exec %s %s", preprocessor, file);
+	snprintf(command, len, "exec env LC_ALL=C %s %s", preprocessor, file);
     } else {
-        len = strlen(preprocessor)+strlen(vpath)+strlen(file)+8;
+        len = strlen(preprocessor)+strlen(vpath)+strlen(file)+21;
 	command = (char*) malloc(len);
-	snprintf(command, len, "exec %s %s/%s", preprocessor, vpath, file);
+	snprintf(command, len, "exec env LC_ALL=C %s %s/%s", preprocessor, vpath, file);
     }
     fin = popen(command, "r");
     free(command);
