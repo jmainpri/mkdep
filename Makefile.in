@@ -49,10 +49,10 @@ uninstall:
 
 
 clean:
-	-rm $(OBJ) $(MKDEP)
+	-rm -f $(OBJ) $(MKDEP)
 
-skel: clean
-	-rm config.cache config.log config.status Makefile
+distclean: clean
+	-rm -f config.cache config.log config.status Makefile
 
 #----------------------------------------------------------------------
 # secondary targets (called by primary ones)
