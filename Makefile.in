@@ -111,8 +111,3 @@ $(srcdir)/configure: configure.in
 %.o: %.c mkdep.h
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< 
 
-$(man1dir)/%.1: %.man $(man1dir)
-	cp $< $@
-
-$(cat1dir)/%.1: %.man $(cat1dir)
-	nroff -man $< > $@
