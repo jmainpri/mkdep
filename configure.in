@@ -26,7 +26,7 @@ case ${host_os} in
 esac
 
 PACKAGE=mkdep
-VERSION=2.2
+VERSION=2.3
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 

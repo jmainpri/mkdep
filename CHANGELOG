@@ -1,4 +1,4 @@
-mkdep 2.3 Release 16 december 2004
+mkdep 2.3 Release 20 december 2004
 
   8. Replace insecure string copy functions with strlcat/strlcpy. 
   7. Expand buffer space for file names to 1024 characters.
