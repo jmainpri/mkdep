@@ -33,6 +33,13 @@ VPATH = @srcdir@
 OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o
 
 #----------------------------------------------------------------------
+# Distribution files
+
+DISTNAME = @PACKAGE@-@VERSION@
+DISTFILES = INSTALL Makefile.in README config.guess config.sub configure \
+	configure.in install-sh mkdep.h $(OBJ:%.o=%.c)
+
+#----------------------------------------------------------------------
 # primary targets
 
 MKDEP = mkdep$(exeext)
@@ -53,6 +60,13 @@ clean:
 
 distclean: clean
 	-rm -f config.cache config.log config.status Makefile
+
+dist:
+	-mkdir $(DISTNAME)
+	(cd $(srcdir) ; gnutar cf - --exclude=CVS $(DISTFILES)) | \
+	( cd $(DISTNAME) ; tar xpf - )
+	tar cf - $(DISTNAME) | gzip -c -9 > $(DISTNAME).tar.gz
+	rm -rf $(DISTNAME)
 
 #----------------------------------------------------------------------
 # secondary targets (called by primary ones)
