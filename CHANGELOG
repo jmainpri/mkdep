@@ -1,0 +1,12 @@
+mkdep 2.2 Released 25 july 2003
+
+  4. Add this CHANGELOG. 
+  3. Add license to files where it was missing. 
+  2. Use mkdinstdir to create destination directories.
+  1. Fix manual page installation.
+
+mkdep 2.1 Released 27 february 2002
+
+  Initial public release of LAAS mkdep. 
+
+$LAAS$
