@@ -30,15 +30,13 @@
  */
 
 
-#include "mkdep.h"
+
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#if HAVE_UNISTD_H
-#   include <unistd.h>
-#else
-#   error("Not a POSIX system")
-#endif
+#include "mkdep.h"
+
 
 static char  * vpath = NULL;
 static char ** vpaths = NULL;

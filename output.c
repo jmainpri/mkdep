@@ -30,17 +30,13 @@
  */
 
 
-#include "mkdep.h"
-#if HAVE_UNISTD_H
-#   include <unistd.h>
-#else
-#   error("Not a POSIX system")
-#endif
-
 #include <string.h>
 #include <errno.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+#include "mkdep.h"
 
 static const char* mkdep_header[] = 
 {     "#--- DO NOT EDIT BELOW THIS LINE\n",
