@@ -1,3 +1,9 @@
+mkdep 2.3 Release 16 december 2004
+
+  8. Replace insecure string copy functions with strlcat/strlcpy. 
+  7. Expand buffer space for file names to 1024 characters.
+  6. force LC_ALL=C before calling cpp, to avoid problem with localized
+     strings in cpp output parser.
   5. sprintf() -> snprintf() conversion.
 
 mkdep 2.2 Released 25 july 2003
