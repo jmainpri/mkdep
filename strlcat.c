@@ -19,14 +19,10 @@
 #include <sys/types.h>
 #include <string.h>
 
-#include "config.h"
-
 #ifndef lint
 static const char rcsid[] = "$Sudo: strlcat.c,v 1.4 2004/02/14 15:13:57 aaron Exp $";
 #endif /* lint */
 
-
-#ifndef HAVE_STRLCAT
 /*
  * Appends src to string dst of size siz (unlike strncat, siz is the
  * full size of dst, not space left).  At most siz-1 characters
@@ -64,4 +60,3 @@ strlcat(dst, src, siz)
 
 	return(dlen + (s - src));	/* count does not include NUL */
 }
-#endif
