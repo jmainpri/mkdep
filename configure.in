@@ -1,3 +1,7 @@
+dnl autoconf script for mkdep
+dnl 
+dnl $LAAS$
+dnl
 AC_REVISION($LAAS$)dnl
 AC_INIT(mkdep.c)
 AC_PREREQ(2.1)
@@ -18,5 +22,11 @@ case ${host_os} in
    exeext=.exe
    ;;
 esac
+
+PACKAGE=mkdep
+VERSION=2.1
+AC_SUBST(PACKAGE)
+AC_SUBST(VERSION)
+
 
 AC_OUTPUT(Makefile)
