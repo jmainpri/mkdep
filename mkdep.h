@@ -68,7 +68,7 @@ void            display_target              (FILE*, int,
 					     const char*, const char*);
 void            close_output_file           (FILE*);
 
-void            interrupt_dependancies      (void);
+void            interrupt_dependancies      (int);
 
 #endif  /* ! MKDEP_H */
 

@@ -31,7 +31,8 @@
 
 
 #include "mkdep.h"
-
+#include <string.h>
+#include <stdlib.h>
 
 static deps * substitutions = NULL;
 

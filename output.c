@@ -37,9 +37,10 @@
 #   error("Not a POSIX system")
 #endif
 
+#include <string.h>
 #include <errno.h>
 #include <stdarg.h>
-
+#include <stdlib.h>
 
 static const char* mkdep_header[] = 
 {     "#--- DO NOT EDIT BELOW THIS LINE\n",
@@ -214,7 +215,7 @@ void close_output_file(FILE * fout)
 }
 
 
-void interrupt_dependancies()
+void interrupt_dependancies(int sig)
 {
     fprintf(stderr,"mkdep: dependencies interrupted\n");
     if (nametilde != NULL) {
