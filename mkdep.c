@@ -130,6 +130,13 @@ int main(int argc, char** argv)
 		add_preprocessor_arg(argv[arg][1], argument);
 		break;
 
+	      case 'n':
+	        if (strcmp(argv[arg], "-no-cpp-precomp") == 0) {
+		  /* option de Darwin -> utilise le cpp GNU */
+		  add_preprocessor_arg(argv[arg][1], argument);
+		}
+		break;
+
 	      case 'm':
 		if (strcmp(argv[arg], "-mt") == 0) {
 		    /* option -mt de Sun WorkShop */
