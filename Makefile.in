@@ -50,7 +50,7 @@ mkinstalldirs = $(SHELL) $(srcdir)/mkinstalldirs
 CC         = @CC@
 CFLAGS     = @CFLAGS@
 
-CPPFLAGS  = @DEFS@ -DCC=\"@CC@\" -I$(srcdir)
+CPPFLAGS  = @DEFS@ -DCC=\"@CC@\" -I$(srcdir) -I.
 
 VPATH = @srcdir@
 
