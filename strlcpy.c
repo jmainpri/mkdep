@@ -22,6 +22,9 @@
 static const char rcsid[] = "$Sudo: strlcpy.c,v 1.4 2004/02/14 15:13:57 aaron Exp $";
 #endif /* lint */
 
+#include "config.h"
+
+#ifndef HAVE_STRLCPY
 /*
  * Copy src to string dst of size siz.  At most siz-1 characters
  * will be copied.  Always NUL terminates (unless siz == 0).
@@ -55,3 +58,4 @@ strlcpy(dst, src, siz)
 
 	return(s - src - 1);	/* count does not include NUL */
 }
+#endif
