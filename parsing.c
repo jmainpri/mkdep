@@ -39,24 +39,29 @@ static char * preprocessor = NULL;
 
 void define_preprocessor(const char * name)
 {
+    size_t len;
+
     if (preprocessor) {
 	free(preprocessor);
 	preprocessor = NULL;
     }
     if (name != NULL) {
-	preprocessor = (char*) malloc(strlen(name)+4);
-	sprintf(preprocessor, "%s -E", name);
+        len = strlen(name)+4;
+	preprocessor = (char*) malloc(len);
+	snprintf(preprocessor, len, "%s -E", name);
     }
 }
 
 void add_preprocessor_arg(char opt, const char *arg)
 {
+    size_t len; 
+
     if (preprocessor == NULL) {
 	define_preprocessor(CC); /* CC = MACRO */
     }
-    preprocessor = (char*) realloc(preprocessor,
-				   strlen(preprocessor)+strlen(arg)+4);
-    sprintf(preprocessor+strlen(preprocessor),
+    len = strlen(arg)+4;
+    preprocessor = (char*) realloc(preprocessor, strlen(preprocessor)+len);
+    snprintf(preprocessor+strlen(preprocessor), len,
 	    " -%c%s", opt, arg);
 }
 
@@ -64,16 +69,19 @@ FILE * run_preprocessor(const char* file, const char *vpath)
 {
     FILE * fin;
     char * command;
+    size_t len;
+
     if (preprocessor == NULL) {
 	define_preprocessor(CC); /* CC = MACRO */
     }
     if (vpath == NULL) {
-	command = (char*) malloc(strlen(preprocessor)+strlen(file)+7);
-	sprintf(command, "exec %s %s", preprocessor, file);
+        len = strlen(preprocessor)+strlen(file)+7;
+	command = (char*) malloc(len);
+	snprintf(command, len, "exec %s %s", preprocessor, file);
     } else {
-	command = (char*) malloc(strlen(preprocessor)+
-				 +strlen(vpath)+strlen(file)+8);
-	sprintf(command, "exec %s %s/%s", preprocessor, vpath, file);
+        len = strlen(preprocessor)+strlen(vpath)+strlen(file)+8;
+	command = (char*) malloc(len);
+	snprintf(command, len, "exec %s %s/%s", preprocessor, vpath, file);
     }
     fin = popen(command, "r");
     free(command);

@@ -62,6 +62,7 @@ FILE * open_output_file(const char* name)
 {
     FILE * fout;
     char line[4096];
+    size_t len;
 
     if (name == NULL) {
 	printf ("%s%s\n", mkdep_header[0], mkdep_header[1]);
@@ -72,8 +73,9 @@ FILE * open_output_file(const char* name)
 	/* le fichier existe deja, on cherche l'entete et */
 	/* on le renomme avec un tilde (oh la bonne idee) */
 	namefile = (char*) strdup(name);
-	nametilde = (char*) malloc(strlen(name)+2);
-	sprintf(nametilde, "%s~", name);
+	len = strlen(name)+2;
+	nametilde = (char*) malloc(len);
+	snprintf(nametilde, len, "%s~", name);
 	if (rename(name, nametilde)) {
 	    perror("mkdep"); exit(1);
 	}
@@ -126,7 +128,7 @@ void display_target(FILE * fout,
 	if (vpath == NULL) {
 	    strcpy(buffer, file);
 	} else {
-	    sprintf(buffer, "%s/%s", vpath, file);
+	    snprintf(buffer, sizeof(buffer), "%s/%s", vpath, file);
 	}
 	substitution_filtering(buffer);
 	fprintf(stderr, "make dependencies for %s...\n", buffer);
@@ -153,17 +155,18 @@ void display_target(FILE * fout,
     { /* on calcule le nom de la ou des cible(s) */
 	char target[256];
 	if (library) {
-	    sprintf(target,"%s(%s.o):", library, file);
+	    snprintf(target, sizeof(target), "%s(%s.o):", library, file);
 	    targets = new_deps(target, targets);
 	    display_dependencies(fout, compact, target);
 	} 
 	if (directory) {
-	    sprintf(target,"%s/%s.%s:", directory, file,suffix);
+	    snprintf(target, sizeof(target), "%s/%s.%s:", directory, 
+		file,suffix);
 	    targets = new_deps(target, targets);
 	    display_dependencies(fout, compact, target);
 	} 
 	if ((library == NULL) && (directory == NULL)) {
-	    sprintf(target, "%s.%s:", file, suffix);
+	    snprintf(target, sizeof(target), "%s.%s:", file, suffix);
 	    targets = new_deps(target, targets);
 	    display_dependencies(fout, compact, target);
 	}
