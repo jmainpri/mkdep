@@ -1,0 +1,22 @@
+README for CNRS/LAAS mkdep
+==========================
+
+This is LAAS mkdep, an automatic dependencies generation program for C
+and C++ source code. 
+
+Its main original feature is to be able to incrementally rebuild
+dependencies only for files that have been touched since the last
+mkdep execution.
+
+Other features include the ablilities to generate dependency rules for
+libraries or for objects files stored in a separate directory, and to
+apply some transforms on the name of included files, for example to
+use a make variable to hold a common prefix for included files. 
+
+This utility is used by the Makefiles shipped by other software
+available from the CNRS/LAAS. 
+
+See the INSTALL document for compilation and installation
+instructions. 
+
+$Laas$

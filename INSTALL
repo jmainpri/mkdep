@@ -1,0 +1,43 @@
+installation instructions for LAAS mkdep
+========================================
+
+This program is using a GNU configure shell script to attempt to guess
+correct values for various system-dependent variables used during
+compilation. 
+
+The standard way to compile this package is:
+
+- ./configure --prefix=<your-installation-directory>
+- make
+- make install
+
+This will build the 'mkdep' program and install it ${prefix}/bin. 
+
+Compiler and options
+--------------------
+
+  If your system needs a special compiler or special C compiler flags
+  to build 'mkdep', you can specify them on the configure command line
+  like this: 
+
+      env CC=gcc CFLAGS=-O0 ./configure --prefix=...
+
+Compiling for multiple architectures
+------------------------------------
+
+  You can compile 'mkdep' for multiple architectures or multiple
+  Operating system version by using a separate directory to place
+  object files for each different build. To this, create a
+  system-dependant directory, 'cd' to it and execute configure from
+  it. For instance: 
+ 
+  mkdir i386-linux
+  cd i386-linux
+  ../configure --prefix=....
+  make 
+  make install
+
+
+$Laas$
+
+
