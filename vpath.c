@@ -87,7 +87,7 @@ void define_vpath(const char* value)
 const char* find_file(const char* name)
 {
     int i;
-    char File[256];
+    char File[1024];
     
     /* on teste le chemin courant */
     if (access(name, R_OK) == 0) {
@@ -95,12 +95,12 @@ const char* find_file(const char* name)
     }
     /* la, il faut tester tous les vpath possible */
     for (i = 0; i < nbpath; ++i) {
-	strcpy(File, vpaths[i]);
-	strcat(File, "/");
-	strcat(File, name);
-	if (access(File, R_OK) == 0) {
-	    return vpaths[i];
-	}
+	    strlcpy(File, vpaths[i], sizeof(File));
+	    strlcat(File, "/", sizeof(File));
+	    strlcat(File, name, sizeof(File));
+	    if (access(File, R_OK) == 0) {
+		    return vpaths[i];
+	    }
     }    
     fprintf (stderr, "mkdep: %s, file not found\n", name);
     exit(1);

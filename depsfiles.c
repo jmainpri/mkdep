@@ -59,7 +59,8 @@ void display_dependencies(FILE * fout, int compact, const char* target)
     }
 }
 
-void add_dependency(char name[256], const char * vpath, int vpathlength)
+void add_dependency(char *name, size_t namelen, 
+    const char * vpath, int vpathlength)
 {
     deps * current;
     const char * addeddeps;
@@ -68,7 +69,7 @@ void add_dependency(char name[256], const char * vpath, int vpathlength)
      * Filtrage des dependances (option -i, -s et le vpath)
      */
     if (ignore_filtering(name)) return;
-    substitution_filtering(name);
+    substitution_filtering(name, namelen);
 
     /* suppression du vpath (if any) */
     if ((vpathlength > 0) && 

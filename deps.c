@@ -52,7 +52,7 @@ deps * new_deps(const char* name, deps * next)
     } 
     dep = allocQueue;
     allocQueue = allocQueue->next;
-    strcpy(dep->name, name);
+    strlcpy(dep->name, name, sizeof(dep->name));
     dep->next = next;
     dep->length = strlen(name);
     return dep;

@@ -124,13 +124,13 @@ void display_target(FILE * fout,
 {	
     const char* vpath = find_file(file);
     { /* impression d'un message pour savoir ou on en est */
-	char buffer[256];
+	char buffer[1024];
 	if (vpath == NULL) {
-	    strcpy(buffer, file);
+		strlcpy(buffer, file, sizeof(buffer));
 	} else {
 	    snprintf(buffer, sizeof(buffer), "%s/%s", vpath, file);
 	}
-	substitution_filtering(buffer);
+	substitution_filtering(buffer, sizeof(buffer));
 	fprintf(stderr, "make dependencies for %s...\n", buffer);
     }
     { /* parsing des dependances */

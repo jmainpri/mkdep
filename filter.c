@@ -85,7 +85,7 @@ void add_substitution(const char* subst)
 }
 
 
-void substitution_filtering(char name[256])
+void substitution_filtering(char *name, size_t namelen)
 {
     deps * current = NULL;
     if (substitutions != NULL) {
@@ -93,10 +93,10 @@ void substitution_filtering(char name[256])
     }
     while (current != NULL) {
 	if (strncmp(current->subname, name, current->length) == 0) {
-	    char result[256];
+	    char result[1024];
 	    snprintf(result, sizeof(result), "$(%s)%s", 
 		     current->name, name+current->length);
-	    strcpy(name, result);
+	    strlcpy(name, result, namelen);
 	}
 	current = current->next;
     }
