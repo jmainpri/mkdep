@@ -11,10 +11,11 @@ prefix  = @prefix@
 srcdir  = @srcdir@
 bindir  = @exec_prefix@/bin
 exeext  = @exeext@
-man1dir = $(prefix)/man/man1
-cat1dir = $(prefix)/man/cat1
+mandir  = @mandir@
+man1ext = 1
+man1dir = $(mandir)/man$(man1ext)
 
-alldirs = $(bindir) $(man1dir) $(cat1dir)
+mkinstalldirs = $(SHELL) $(srcdir)/mkinstalldirs
 
 #----------------------------------------------------------------------
 # Compilation variables
@@ -22,10 +23,14 @@ alldirs = $(bindir) $(man1dir) $(cat1dir)
 CC         = @CC@
 CFLAGS     = @CFLAGS@
 
-
-CPPFLAGS = @DEFS@ -DCC=\"@CC@\" -I$(srcdir)
+CPPFLAGS  = @DEFS@ -DCC=\"@CC@\" -I$(srcdir)
 
 VPATH = @srcdir@
+
+INSTALL         = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA    = @INSTALL_DATA@
+transform       = @program_transform_name@
 
 #----------------------------------------------------------------------
 # Objects files
@@ -33,11 +38,15 @@ VPATH = @srcdir@
 OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o
 
 #----------------------------------------------------------------------
+# Manual page
+MANS = mkdep.man
+
+#----------------------------------------------------------------------
 # Distribution files
 
 DISTNAME = @PACKAGE@-@VERSION@
 DISTFILES = INSTALL Makefile.in README config.guess config.sub configure \
-	configure.in install-sh mkdep.h $(OBJ:%.o=%.c)
+	configure.in install-sh mkdep.h $(OBJ:%.o=%.c) $(MANS)
 
 #----------------------------------------------------------------------
 # primary targets
@@ -49,11 +58,7 @@ all: $(MKDEP)
 $(MKDEP): $(OBJ)
 	$(CC) -o $@ $(OBJ) 
 
-install: $(bindir)/$(MKDEP) $(man1dir)/mkdep.1 $(cat1dir)/mkdep.1
-
-uninstall:
-	-rm -f $(bindir)/mkdep $(man1dir)/mkdep.1 $(cat1dir)/mkdep.1
-
+install: install-exec install-man1
 
 clean:
 	-rm -f $(OBJ) $(MKDEP)
@@ -62,9 +67,9 @@ distclean: clean
 	-rm -f config.cache config.log config.status Makefile
 
 dist:
-	-mkdir $(DISTNAME)
+	-mkdir -m 755 $(DISTNAME)
 	(cd $(srcdir) ; gnutar cf - --exclude=CVS $(DISTFILES)) | \
-	( cd $(DISTNAME) ; tar xpf - )
+	( umask 022 ; cd $(DISTNAME) ; tar xpf - )
 	tar cf - $(DISTNAME) | gzip -c -9 > $(DISTNAME).tar.gz
 	rm -rf $(DISTNAME)
 
@@ -72,12 +77,22 @@ dist:
 # secondary targets (called by primary ones)
 
 
-$(bindir)/$(MKDEP): $(MKDEP) $(bindir)
-	cp $(MKDEP) $(bindir)
+install-exec: $(MKDEP)
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) $(MKDEP) $(DESTDIR)$(bindir)
 
-$(alldirs):
-	mkdir -p $@
 
+install-man1:
+	$(mkinstalldirs) $(DESTDIR)$(man1dir)
+	@list='$(MANS)'; \
+	for i in $$list; do \
+	  if test -f $(srcdir)/$$i; then file=$(srcdir)/$$i; \
+	  else file=$$i; fi; \
+	  inst=`echo $$i | sed -e 's/\\.[0-9a-z]*$$//'`; \
+	  inst=`echo $$inst | sed '$(transform)'`.$(man1ext); \
+	  echo " $(INSTALL_DATA) $$file $(DESTDIR)$(man1dir)/$$inst"; \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(man1dir)/$$inst; \
+	done
 
 Makefile: Makefile.in config.status
 	./config.status
@@ -87,6 +102,7 @@ config.status: configure
 
 $(srcdir)/configure: configure.in
 	cd $(srcdir); autoconf
+
 
 
 #----------------------------------------------------------------------
