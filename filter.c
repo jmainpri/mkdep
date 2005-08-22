@@ -113,10 +113,10 @@ static char* sysDeps[] = {
     "/usr/local/openwin/include",
     "/usr/openwin/include",
     "/opt",
-    "/local/gnu",
     "/usr/local/gnu",
     "/usr/local/lib/gcc-lib",
-    "/usr/lib/gcc-lib"
+    "/usr/lib/gcc-lib",
+    "/usr/lib/gcc"
 };
 
 /*
