@@ -1,4 +1,10 @@
-mkdep 2.3 Release 20 december 2004
+mkdep 2.4 Released 29 august 2005
+
+ 10. Update to autoconf 2.59.
+  9. /usr/lib/gcc/ contains system includes in some recent Linux distros. 
+     Ignore its contents too when ignoring system includes.
+
+mkdep 2.3 Released 20 december 2004
 
   8. Replace insecure string copy functions with strlcat/strlcpy. 
   7. Expand buffer space for file names to 1024 characters.
