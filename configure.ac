@@ -3,8 +3,8 @@ dnl
 dnl $LAAS$
 dnl
 AC_REVISION($LAAS$)dnl
-AC_INIT(mkdep.c)
-AC_PREREQ(2.1)
+AC_INIT([mkdep],[2.4],[openrobots@laas.fr])
+AC_PREREQ(2.59)
 
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -24,10 +24,5 @@ case ${host_os} in
    exeext=.exe
    ;;
 esac
-
-PACKAGE=mkdep
-VERSION=2.3
-AC_SUBST(PACKAGE)
-AC_SUBST(VERSION)
 
 AC_OUTPUT(Makefile)

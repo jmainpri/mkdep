@@ -67,6 +67,8 @@ transform       = @program_transform_name@
 OBJ = deps.o depsfiles.o mkdep.o output.o parsing.o vpath.o filter.o help.o \
 	$(LIBOBJS)
 
+COMPAT_SRCS = strlcat.c strlcpy.c
+
 #----------------------------------------------------------------------
 # Manual page
 MANS = mkdep.man
@@ -74,9 +76,10 @@ MANS = mkdep.man
 #----------------------------------------------------------------------
 # Distribution files
 
-DISTNAME = @PACKAGE@-@VERSION@
-DISTFILES = INSTALL Makefile.in README config.guess config.sub configure \
-	configure.in install-sh mkdep.h mkinstalldirs $(OBJ:%.o=%.c) $(MANS)
+DISTNAME = @PACKAGE_TARNAME@-@PACKAGE_VERSION@
+DISTFILES = INSTALL Makefile.in README config.guess config.sub \
+	configure configure.ac install-sh mkdep.h mkinstalldirs \
+	$(COMPAT_SRCS) $(OBJ:%.o=%.c) $(MANS)
 
 #----------------------------------------------------------------------
 # primary targets
@@ -130,7 +133,7 @@ Makefile: Makefile.in config.status
 config.status: configure
 	./config.status --recheck
 
-$(srcdir)/configure: configure.in
+$(srcdir)/configure: configure.ac
 	cd $(srcdir); autoconf
 
 #----------------------------------------------------------------------
