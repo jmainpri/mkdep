@@ -136,7 +136,9 @@ void parse_preprocessed_data(FILE * fin, const char * vpath)
 			    buffer[pos-1] = 0;
 			    /* printf("buffer: %s\n", buffer); */
 			    if (strcmp(buffer, "<command line>") != 0 &&
-				strcmp(buffer, "<built-in>") != 0) 
+				strcmp(buffer, "<built-in>") != 0 &&
+				strcmp(buffer, "<stdout>") != 0 &&
+				strcmp(buffer, "<stdin>") != 0)
 				    add_dependency(buffer, sizeof(buffer), 
 					vpath, len);
 			} else {

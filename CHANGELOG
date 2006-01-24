@@ -1,3 +1,8 @@
+mkdep 2.5 xxx xxxx xxx
+
+ 12. Ignore lignes tagged with <stdin> or <stdout> by GNU cpp. 
+     (Ludovic Courtes) 
+
 mkdep 2.4 Released 29 august 2005
 
  11. Fix packing list (compatibility sources where omitted).
