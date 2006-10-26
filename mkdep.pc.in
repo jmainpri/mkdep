@@ -1,0 +1,8 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+program=${bindir}/mkdep@exeext@
+
+Name: @PACKAGE_NAME@
+Description: Automatic dependencies generation program for C and C++ source code.
+Version: @PACKAGE_VERSION@

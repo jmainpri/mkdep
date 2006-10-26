@@ -34,13 +34,17 @@
 
 SHELL   = /bin/sh
 
-prefix  = @prefix@
-srcdir  = @srcdir@
-bindir  = @exec_prefix@/bin
-exeext  = @exeext@
-mandir  = @mandir@
-man1ext = 1
-man1dir = $(mandir)/man$(man1ext)
+prefix  = 	@prefix@
+exec_prefix  = 	@exec_prefix@
+srcdir  = 	@srcdir@
+bindir  = 	@bindir@
+libdir  = 	@libdir@
+exeext  = 	@exeext@
+datarootdir =	@datarootdir@
+datadir =	@datadir@
+mandir  = 	@mandir@
+man1dir = 	$(mandir)/man$(man1ext)
+man1ext = 	1
 
 mkinstalldirs = $(SHELL) $(srcdir)/mkinstalldirs
 
@@ -91,7 +95,7 @@ all: $(MKDEP)
 $(MKDEP): $(OBJ)
 	$(CC) -o $@ $(OBJ) 
 
-install: install-exec install-man1
+install: install-exec install-man1 install-extra
 
 clean:
 	-rm -f $(OBJ) $(MKDEP)
@@ -126,6 +130,12 @@ install-man1:
 	  echo " $(INSTALL_DATA) $$file $(DESTDIR)$(man1dir)/$$inst"; \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(man1dir)/$$inst; \
 	done
+
+install-extra: mkdep.pc mkdep.m4
+	$(mkinstalldirs) $(libdir)/pkgconfig
+	$(INSTALL_DATA) mkdep.pc $(libdir)/pkgconfig
+	$(mkinstalldirs) $(datadir)/aclocal
+	$(INSTALL_DATA) $(srcdir)/mkdep.m4 $(datadir)/aclocal
 
 Makefile: Makefile.in config.status
 	./config.status

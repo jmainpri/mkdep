@@ -1,5 +1,6 @@
 mkdep 2.5 xxx xxxx xxx
 
+ 13. Add pkg-config file and m4 template macro to look for mkdep executable
  12. Ignore lignes tagged with <stdin> or <stdout> by GNU cpp. 
      (Ludovic Courtes) 
 

@@ -25,4 +25,4 @@ case ${host_os} in
    ;;
 esac
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(Makefile mkdep.pc)
