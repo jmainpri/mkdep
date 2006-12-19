@@ -1,4 +1,4 @@
-mkdep 2.5 xxx xxxx xxx
+mkdep 2.5 Released 19 december 2006
 
  14. Handle autoconf 2.60 datarootdir settings.
  13. Add pkg-config file and m4 template macro to look for mkdep executable
