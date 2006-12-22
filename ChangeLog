@@ -1,3 +1,10 @@
+ 17. Switch to automake.
+
+mkdep 2.6 Released 22 december 2006
+
+ 16. Let configure find the GNU tar program.
+ 15. Add missing files to DISTFILES.
+
 mkdep 2.5 Released 19 december 2006
 
  14. Handle autoconf 2.60 datarootdir settings.
