@@ -3,12 +3,13 @@ dnl
 dnl $LAAS$
 dnl
 AC_REVISION($LAAS$)dnl
-AC_INIT([mkdep],[2.6],[http://softs.laas.fr/openrobots/], mkdep)
+AC_INIT([mkdep],[2.7],[http://softs.laas.fr/openrobots/], mkdep)
 AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([dist-bzip2])
 AM_MAINTAINER_MODE
 
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_CHECK_HEADERS(unistd.h, [], AC_MSG_ERROR("Not a POSIX system"))
 AC_REPLACE_FUNCS(strlcat strlcpy)
