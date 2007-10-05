@@ -30,3 +30,4 @@ aclocal_DATA= 	mkdep.m4
 
 man_MANS=	mkdep.1
 
+EXTRA_DIST = mkdep.m4 $(man_MANS)
