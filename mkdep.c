@@ -31,6 +31,8 @@
 
 #include "mkdep.h"
 #include <signal.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char** argv)
 {
@@ -91,7 +93,12 @@ int main(int argc, char** argv)
 		break;
 		
 	      case 'i':
-		ignore_user_dependency(argument);
+		if (strncmp(argv[arg], "-isystem", 8) == 0 ||
+		    strncmp(argv[arg], "-idirafter", 10) == 0) {
+		    add_preprocessor_arg(argv[arg][1], argument);
+		} else {
+		    ignore_user_dependency(argument);
+		}
 		break;
 
 	      case 's':
@@ -113,7 +120,7 @@ int main(int argc, char** argv)
 		break;
 
 	      case 'c':
-		if (strcmp(argv[arg], "-ccache") == 0) {
+		if (strcmp(argv[arg], "-cccache") == 0) {
 		     /* ignore this and next arg */
 		     arg++;
 		} else {
