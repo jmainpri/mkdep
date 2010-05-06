@@ -113,9 +113,14 @@ int main(int argc, char** argv)
 		break;
 
 	      case 'c':
-		define_preprocessor(argument);
-		library = NULL;
-		directory = NULL;
+		if (strcmp(argv[arg], "-ccache") == 0) {
+		     /* ignore this and next arg */
+		     arg++;
+		} else {
+		     define_preprocessor(argument);
+		     library = NULL;
+		     directory = NULL;
+		}
 		break;
 
 	      case 'h':
@@ -142,7 +147,10 @@ int main(int argc, char** argv)
 		    /* option -mt de Sun WorkShop */
 		    add_preprocessor_arg(argv[arg][1], argument);
 		    break;
-		} 
+		}
+		/* Ignore other -mxxx options */
+		if (argument[0] != 0)
+			break;
 		/*FALLTHROUGH*/
 	      default:
 		fprintf(stderr, "mkdep unknown option: %s\n", argv[arg]);
